@@ -1,7 +1,3 @@
-<html lang="ko">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>카페인 트래커</title>
 <style>
   :root {
@@ -56,7 +52,7 @@
   }
 
   /* ── LAYOUT (오른쪽 사진처럼 2단 배치 수정) ── */
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
   .main-grid {
     display: grid;
     grid-template-columns: 1fr 340px; /* 왼쪽 선택란 가변 폭, 오른쪽 결과창 고정 폭 */
