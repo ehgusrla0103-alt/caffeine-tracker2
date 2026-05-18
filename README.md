@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -54,13 +56,14 @@
     letter-spacing: 0.02em;
   }
 
-  /* ── LAYOUT ── */
-  .container { max-width: 240px; margin: 0 auto; padding: 0 1rem; }
+  /* ── LAYOUT (오른쪽 사진처럼 2단 배치 수정) ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
   .main-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+    grid-template-columns: 1fr 340px; /* 왼쪽 선택란 가변 폭, 오른쪽 결과창 고정 폭 */
+    gap: 2rem;
+    margin-top: 2rem;
+    align-items: start;
   }
 
   /* ── SECTION LABELS ── */
@@ -82,17 +85,17 @@
     margin-bottom: 1.25rem;
   }
 
-  /* ── BRAND GRID ── */
+  /* ── BRAND GRID (넓어진 화면에 맞춤) ── */
   .brand-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 8px;
   }
   .brand-btn {
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 10px 8px;
+    padding: 12px 8px;
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
     text-align: center;
@@ -267,7 +270,7 @@
   .tip-row:first-child { padding-top: 0; }
   .tip-icon { flex-shrink: 0; width: 18px; font-size: 0.8rem; margin-top: 1px; }
 
-  /* ── SIDE ── */
+  /* ── SIDE STICKY ── */
   .side-sticky { position: sticky; top: 1.5rem; }
 
   /* ── INFO NOTE ── */
@@ -309,16 +312,13 @@
 <div class="container">
   <div class="main-grid">
 
-    <!-- ── LEFT COLUMN ── -->
     <div class="left-col">
 
-      <!-- STEP 1: 브랜드 -->
       <div class="step-box">
         <div class="sec-label">01 — 브랜드 선택</div>
         <div class="brand-grid" id="brandGrid"></div>
       </div>
 
-      <!-- STEP 2: 메뉴 -->
       <div class="step-box">
         <div class="sec-label">02 — 메뉴 선택</div>
         <div id="menuSection">
@@ -326,7 +326,6 @@
         </div>
       </div>
 
-      <!-- STEP 3: 오늘 목록 -->
       <div class="step-box">
         <div class="sec-label">03 — 오늘 마신 음료</div>
         <div id="logList"><div class="log-empty">아직 추가된 음료가 없어요.</div></div>
@@ -334,12 +333,8 @@
         <button class="reset-btn" onclick="resetAll()">초기화</button>
       </div>
 
-    </div><!-- /left -->
+    </div><div class="side-sticky">
 
-    <!-- ── RIGHT COLUMN ── -->
-    <div class="side-sticky">
-
-      <!-- RESULT -->
       <div class="result-card" id="resultCard">
         <div class="result-top">
           <span class="result-num" id="resultNum">0</span>
@@ -356,20 +351,17 @@
         </div>
       </div>
 
-      <!-- TIPS -->
       <div class="tips-box" id="tipsBox" style="display:none;">
         <div class="sec-label" style="margin-bottom:0.5rem;">대체제 &amp; 습관 추천</div>
         <div id="tipsList"></div>
       </div>
 
-    </div><!-- /right -->
-
-  </div>
+    </div></div>
 </div>
 
 <script>
 /* ================================================================
-   DATA
+    DATA
 ================================================================ */
 const BRANDS = [
   {
@@ -486,13 +478,13 @@ const TIPS = {
 };
 
 /* ================================================================
-   STATE
+    STATE
 ================================================================ */
 let activeBrandId = null;
-let log = []; // { brandName, menuName, mg, qty }
+let log = [];
 
 /* ================================================================
-   RENDER BRANDS
+    RENDER BRANDS
 ================================================================ */
 function renderBrands() {
   const grid = document.getElementById('brandGrid');
@@ -506,7 +498,7 @@ function renderBrands() {
 }
 
 /* ================================================================
-   RENDER MENUS
+    RENDER MENUS
 ================================================================ */
 function selectBrand(id) {
   activeBrandId = id;
@@ -543,7 +535,7 @@ function renderMenus() {
 }
 
 /* ================================================================
-   ADD ITEM
+    ADD ITEM
 ================================================================ */
 function addItem(brandId, brandName, menuName, mg) {
   const key = brandId + '|' + menuName;
@@ -563,7 +555,7 @@ function addCustom(brandId, brandName) {
 }
 
 /* ================================================================
-   LOG
+    LOG
 ================================================================ */
 function changeQty(key, delta) {
   const i = log.findIndex(l => l.key === key);
@@ -608,7 +600,7 @@ function resetAll() {
 }
 
 /* ================================================================
-   RESULT
+    RESULT
 ================================================================ */
 function updateResult(total) {
   const card = document.getElementById('resultCard');
@@ -658,7 +650,7 @@ function updateResult(total) {
 }
 
 /* ================================================================
-   INIT
+    INIT
 ================================================================ */
 renderBrands();
 renderLog();
