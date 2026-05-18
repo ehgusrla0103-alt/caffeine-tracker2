@@ -2,7 +2,6 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>카페인 트래커</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -57,7 +56,7 @@
   }
 
   /* ── LAYOUT ── */
-  .container { max-width: 480px; margin: 0 auto; padding: 0 1rem; }
+  .container { max-width: 240px; margin: 0 auto; padding: 0 1rem; }
   .main-grid {
     display: grid;
     grid-template-columns: 1fr;
